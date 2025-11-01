@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Hangfire Demo";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4 mb-4">Hangfire Demo - Background Job Processing</h1>
+    
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+   <strong>Success!</strong> @ViewBag.Message
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+     </div>
+    }
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+   <div class="card-body">
+    <h5 class="card-title">📊 Hangfire Dashboard</h5>
+           <p class="card-text">Monitor all your background jobs, view statistics, and manage recurring jobs.</p>
+       <a href="/hangfire" target="_blank" class="btn btn-primary">Open Hangfire Dashboard</a>
+   </div>
+ </div>
+        </div>
+    </div>
+
+    <h3 class="mb-3">Job Types</h3>
+
+    <div class="row g-3">
+        <!-- Fire-and-Forget Job -->
+ <div class="col-md-6">
+   <div class="card h-100">
+    <div class="card-body">
+            <h5 class="card-title">🚀 Fire-and-Forget Job</h5>
+               <p class="card-text">Executes a job once, immediately in the background.</p>
+    <form asp-action="EnqueueSimpleJob" method="post">
+  <button type="submit" class="btn btn-success">Enqueue Simple Job</button>
+  </form>
+  </div>
+    </div>
+     </div>
+
+        <!-- Job with Retry -->
+        <div class="col-md-6">
+    <div class="card h-100">
+    <div class="card-body">
+ <h5 class="card-title">🔄 Job with Retry Mechanism</h5>
+         <p class="card-text">Demonstrates automatic retry on failure (fails 2 times, succeeds on 3rd).</p>
+     <form asp-action="EnqueueJobWithRetry" method="post">
+       <button type="submit" class="btn btn-warning">Enqueue Retry Job</button>
+        </form>
+    </div>
+    </div>
+        </div>
+
+    <!-- Delayed Job -->
+        <div class="col-md-6">
+            <div class="card h-100">
+  <div class="card-body">
+    <h5 class="card-title">⏰ Delayed Job</h5>
+     <p class="card-text">Schedules a job to execute after a specified delay (2 minutes).</p>
+     <form asp-action="EnqueueDelayedJob" method="post">
+     <button type="submit" class="btn btn-info">Schedule Delayed Job</button>
+     </form>
+   </div>
+     </div>
+        </div>
+
+        <!-- Long-Running Job -->
+     <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+ <h5 class="card-title">⏳ Long-Running Job</h5>
+                 <p class="card-text">Executes a job that takes time to complete (10 seconds).</p>
+      <form asp-action="EnqueueLongRunningJob" method="post">
+    <button type="submit" class="btn btn-secondary">Start Long Job</button>
+      </form>
+ </div>
+   </div>
+        </div>
+
+    <!-- Data Processing Job -->
+        <div class="col-md-6">
+  <div class="card h-100">
+     <div class="card-body">
+    <h5 class="card-title">💾 Data Processing Job (Persistence)</h5>
+ <p class="card-text">Processes data and demonstrates job persistence in SQL Server.</p>
+           <form asp-action="EnqueueDataProcessingJob" method="post">
+          <div class="input-group mb-2">
+         <input type="text" name="data" class="form-control" placeholder="Enter data to process">
+           </div>
+    <button type="submit" class="btn btn-primary">Process Data</button>
+    </form>
+     </div>
+            </div>
+        </div>
+
+    <!-- Continuation Job -->
+  <div class="col-md-6">
+            <div class="card h-100">
+       <div class="card-body">
+   <h5 class="card-title">🔗 Continuation Job</h5>
+<p class="card-text">Executes a second job automatically after the first one completes.</p>
+ <form asp-action="EnqueueContinuationJob" method="post">
+         <button type="submit" class="btn btn-dark">Start Chain Jobs</button>
+             </form>
+            </div>
+     </div>
+        </div>
+
+        <!-- Batch Jobs -->
+  <div class="col-md-6">
+   <div class="card h-100">
+    <div class="card-body">
+         <h5 class="card-title">📦 Batch Jobs</h5>
+   <p class="card-text">Enqueues multiple jobs at once for parallel execution.</p>
+    <form asp-action="EnqueueBatchJobs" method="post">
+    <button type="submit" class="btn btn-danger">Enqueue 5 Jobs</button>
+      </form>
+        </div>
+      </div>
+   </div>
+
+        <!-- Recurring Jobs Info -->
+        <div class="col-md-6">
+     <div class="card h-100 bg-light">
+      <div class="card-body">
+   <h5 class="card-title">🔁 Recurring Jobs (Auto-configured)</h5>
+       <p class="card-text">These jobs are already scheduled and running automatically:</p>
+    <ul>
+              <li><strong>Simple Recurring Job:</strong> Runs every minute</li>
+     <li><strong>Data Processing Job:</strong> Runs every hour</li>
+      </ul>
+           <p class="text-muted small">View them in the Hangfire Dashboard → Recurring Jobs tab</p>
+    </div>
+            </div>
+    </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>📝 Features Demonstrated</h3>
+        <ul>
+      <li><strong>Job Scheduling:</strong> Delayed jobs, recurring jobs (Cron expressions)</li>
+  <li><strong>Retry Mechanism:</strong> Automatic retry with exponential backoff</li>
+  <li><strong>Job Persistence:</strong> All jobs stored in SQL Server database</li>
+            <li><strong>Dashboard:</strong> Real-time monitoring and management</li>
+         <li><strong>Job Continuations:</strong> Chain jobs together</li>
+            <li><strong>Batch Processing:</strong> Execute multiple jobs in parallel</li>
+        </ul>
+    </div>
+</div>
